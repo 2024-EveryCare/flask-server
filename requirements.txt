@@ -1,0 +1,6 @@
+Flask
+easyocr
+numpy
+opencv-python-headless
+matplotlib
+pillow
