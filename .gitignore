@@ -3,7 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-
+# 사진
+uploads
+ocr_images
 
 # C extensions
 *.so
