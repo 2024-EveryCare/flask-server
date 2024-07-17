@@ -8,7 +8,7 @@ import uuid
 from drug_search_api import get_drug_info
 from perform_ocr import save_image # ocr 로직 가져오기
 from perform_ocr import draw_bounding_boxes # ocr 로직 가져오기
-from drug_gpt import extract_drug_names #gpt 사용하여 필터링 로직 가져오기
+# from drug_gpt import extract_prescription_medications #gpt 사용하여 필터링 로직 가져오기
 from perform_ocr import perform_ocr # ocr 로직 가져오기
 from filter_drug import filter_drug_texts  # 필터링 로직 가져오기
 from filter_hospital import filter_hospital_texts  # 필터링 로직 가져오기
@@ -70,7 +70,9 @@ def upload_image():
         # 약품명 필터링 결과 얻기
         item_names = filter_drug_texts(ocr_result)
 
-        # print("Filter Result:", item_names)
+        #item_names = extract_drug_names(texts)
+
+        print("Filter Result:", item_names)
 
         # 약품명 api를 통한 조회
         drug_names, serial_num = get_drug_info(item_names)

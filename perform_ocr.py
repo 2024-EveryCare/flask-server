@@ -1,22 +1,3 @@
-"""
-import easyocr
-import cv2
-
-def perform_ocr(file_path):
-    # OCR 리더 초기화 (한국어 설정, GPU 사용 안 함)
-    reader = easyocr.Reader(['ko'], gpu=False)
-
-    # 이미지 읽기
-    image = cv2.imread(file_path)
-
-    # OpenCV 이미지를 RGB 형식으로 변환
-    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
-    # OCR 처리
-    result = reader.readtext(image_rgb)
-
-    return result
-"""
 
 import cv2
 import numpy as np
