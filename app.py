@@ -14,6 +14,7 @@ from filter_drug import filter_drug_texts  # 필터링 로직 가져오기
 from filter_hospital import filter_hospital_texts  # 필터링 로직 가져오기
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 app.config['UPLOAD_FOLDER'] = 'uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -38,10 +39,10 @@ def upload_image():
     if file.filename == '':
         return jsonify({"error": "선택된 파일이 없습니다"}), 400
 
-    if 'userID' not in request.form:
-        return jsonify({"error": "userID가 없습니다"}), 400
+    if 'member_id' not in request.form:
+        return jsonify({"error": "member_id가 없습니다"}), 400
 
-    user_id = request.form['userID']
+    member_id = request.form['member_id']
 
     if file and allowed_file(file.filename):
         # 고유 ResultID 생성
@@ -81,18 +82,20 @@ def upload_image():
         hospital_names = filter_hospital_texts(image, ocr_result)
 
         # OCR 결과와 파일 경로 반환
-        return jsonify({
+        response = jsonify({
             "code": "A001",
             "status": "200",
             "message": "사진 등록 성공",
-            "resultID": result_id,
-            "userID": user_id,
+            "result_id": result_id,
+            "member_id": member_id,
             "drugName": drug_names,
             "hospital": hospital_names,
-            "drug_serialNum" : serial_num
+            "drug_id": serial_num
         })
-
-    return jsonify({"error": "허용되지 않는 파일 형식입니다"}), 400
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+        return response
+    else:
+        return jsonify({"error": "허용되지 않는 파일 형식입니다"}), 400
 
 if __name__ == '__main__':
     app.run(debug=False)
