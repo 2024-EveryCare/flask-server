@@ -98,4 +98,5 @@ def upload_image():
         return jsonify({"error": "허용되지 않는 파일 형식입니다"}), 400
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    # app.run(debug=False) # 로컬용
+    pass                # 도커용
