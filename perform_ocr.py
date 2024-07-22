@@ -8,8 +8,9 @@ import os
 
 def perform_ocr(file_path):
     # OCR 리더 초기화 (한국어 설정, GPU 사용 안 함)
-    reader = easyocr.Reader(['ko'], gpu=False)
-
+    model_dir = "/flask-server/.EasyOCR/model"  # 도커용
+    reader = easyocr.Reader(['ko'], download_enabled=False, model_storage_directory=model_dir)   # 도커용
+    # reader = easyocr.Reader(['ko'], gpu=False) # 로컬용
     # 이미지 읽기
     image = cv2.imread(file_path)
 
