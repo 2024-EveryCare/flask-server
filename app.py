@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from werkzeug.utils import secure_filename
 import os
 import easyocr
@@ -81,18 +81,21 @@ def upload_image():
         # 병원명 필터링 결과 얻기
         hospital_names = filter_hospital_texts(image, ocr_result)
 
-        # OCR 결과와 파일 경로 반환
-        response = jsonify({
+        # JSON 응답 명시적으로 설정
+        response_data = {
             "code": "A001",
-            "status": "200",
-            "message": "사진 등록 성공",
-            "result_id": result_id,
-            "member_id": member_id,
             "drugName": drug_names,
             "hospital": hospital_names,
-            "drug_id": serial_num
-        })
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+            "message": "사진 등록 성공",
+            "disease": None,
+            "intakeStart": None,
+            "intakeEnd": None,
+            "intakeDaily": None,
+            "intakeCycle": None,
+            "status": "200"
+        }
+        response = Response(response=jsonify(response_data).get_data(as_text=True),
+                            content_type='application/json; charset=utf-8')
         return response
     else:
         return jsonify({"error": "허용되지 않는 파일 형식입니다"}), 400
