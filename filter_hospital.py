@@ -1,4 +1,4 @@
-def filter_hospital_texts(image, ocr_results):
+def filter_hospital_texts(ocr_results):
     # "의원"이나 "병원"을 포함하는 텍스트를 필터링하는 기능 추가
     filtered_results = []
     for text_info in ocr_results:
