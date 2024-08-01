@@ -11,7 +11,7 @@ def get_drug_info(item_names):
     api_key = "IDPcbgILYcC9dN7AhRfI1bYq0mETbv2lYmV+TqgNSaisuoNC88cAppEZ8bTsoyo7g4yYVYlKUaAbJiRp6m2LFQ=="
 
     results_name = []  # 제품명 저장 리스트
-    results_SN = []    # 시리얼 넘버 저장 리스트
+    # results_SN = []    # 시리얼 넘버 저장 리스트
 
     for item_name in item_names:
         # 공백과 괄호 이후 텍스트 삭제
@@ -40,19 +40,19 @@ def get_drug_info(item_names):
                     product_name = data['body']['items'][0]['ITEM_NAME']
                     serial_num = data['body']['items'][0]['ITEM_SEQ']
                     results_name.append(product_name)
-                    results_SN.append(serial_num)
+                    # results_SN.append(serial_num)
                 else:
                     print(f"'{item_name}'에 대한 데이터를 찾을 수 없습니다.")
                     results_name.append(None)
-                    results_SN.append(None)
+                    #results_SN.append(None)
             else:
                 print(f"에러: {response.status_code}")
                 print("응답 내용:", response.text)
                 results_name.append(None)
-                results_SN.append(None)
+                #results_SN.append(None)
         except requests.exceptions.RequestException as e:
             print("오류 발생:", e)
             results_name.append(None)
-            results_SN.append(None)
+            #results_SN.append(None)
 
-    return results_name, results_SN
+    return results_name
