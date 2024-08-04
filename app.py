@@ -63,10 +63,10 @@ def upload_image():
         ## print(gpt_drug_names)
 
         # 바운딩 박스 그리기
-        annotated_image = draw_bounding_boxes(image, ocr_result)
+        #annotated_image = draw_bounding_boxes(image, ocr_result)
 
         # 사진 저장하기
-        save_image(annotated_image)
+        #save_image(annotated_image)
 
         # 약품명 필터링 결과 얻기
         item_names = filter_drug_texts(ocr_result)
@@ -76,10 +76,10 @@ def upload_image():
         print("Filter Result:", item_names)
 
         # 약품명 api를 통한 조회
-        drug_names, serial_num = get_drug_info(item_names)
+        drug_names = get_drug_info(item_names)
 
         # 병원명 필터링 결과 얻기
-        hospital_names = filter_hospital_texts(image, ocr_result)
+        hospital_names = filter_hospital_texts(ocr_result)
 
         # JSON 응답 명시적으로 설정
         response_data = {
