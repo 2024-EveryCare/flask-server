@@ -3,8 +3,7 @@ import re
 
 def remove_parentheses(text):
     # 괄호 및 괄호 안의 내용을 제거하는 정규 표현식 사용
-    return re.sub(r'\(.*', '', text).strip()
-
+    return re.sub(r'\(.*\(\)', '', text).strip()
 def get_drug_info(item_names):
     # API URL 및 API 키 설정
     api_url = "http://apis.data.go.kr/1471000/DrugPrdtPrmsnInfoService05/getDrugPrdtPrmsnInq05"
@@ -17,6 +16,7 @@ def get_drug_info(item_names):
         # 공백과 괄호 이후 텍스트 삭제
         item_name_deleted_blank = item_name.replace(" ", "")
         deleted_blank_final = remove_parentheses(item_name_deleted_blank)
+        print(deleted_blank_final)
 
 
 
